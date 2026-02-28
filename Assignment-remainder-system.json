@@ -1,0 +1,114 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dc6953bd-dac6-4a06-bde9-f1ef75648480",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1il19PnToeM_p4BsZV3kCIJLl_WSxcnBjFDtqxR63l1o",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "338fd43f-9f6d-4079-8e47-d00e7d39f949",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "cfP67Fmfr7AGyyCD",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sanidhyam2005@gmail.com",
+        "subject": "=hello Reminder: {{ $json[\"Assignment\"] }} is due soon",
+        "message": "=Hi {{ $json[\"Student Name\"] }},\n\nThis is a reminder that your assignment \"{{ $json[\"Assignment\"] }}\" is due on {{ $json[\"Due Date\"] }}.\n\nPlease submit it before the deadline.\n\n- Assignment Reminder Bot",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "535fb57c-0b49-4013-b837-e1f613cefc27",
+      "name": "Send a message",
+      "webhookId": "f351e18e-3166-49db-9780-d951dece2fa3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VEW2aSdc9meSwo51",
+          "name": "Gmail account 4"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "61c1b236-10b6-4afb-bd55-623f318db545",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "567d5f69662957c56d6b089db33ce7cd08ac782a7ffce3b1f96e6b7ae1ba34f0"
+  },
+  "id": "yVgwVMFpHhZeVnSp",
+  "tags": []
+}
